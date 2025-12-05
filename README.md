@@ -31,3 +31,6 @@ The UI is designed to feel like a warm bedroom at night: soft lighting, dark blu
 npm install
 npm run dev
 ```
+
+🔗 Live Demo: https://lofi-classical-player.vercel.app/
+🔗 GitHub Repo: https://github.com/nitagonita/lofi-classical-player

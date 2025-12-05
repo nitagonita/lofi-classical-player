@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./index.css";
 
 const tracks = [
@@ -26,41 +26,55 @@ function App() {
 
   const currentTrack = tracks[currentIndex];
 
+  // Kalau track berubah & status isPlaying = true → play otomatis
+  useEffect(() => {
+    if (!audioRef.current) return;
+    audioRef.current.load(); // memastikan browser refresh src
+    if (isPlaying) {
+      audioRef.current.play().catch(() => {
+        // kalau gagal auto-play (policy browser), biarin aja
+      });
+    }
+  }, [currentIndex, isPlaying]);
+
   const handlePlayPause = () => {
     if (!audioRef.current) return;
+
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current.play();
-      setIsPlaying(true);
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {
+          // kalau play gagal, jangan apa-apa
+        });
     }
   };
 
   const playTrackAtIndex = (index) => {
     setCurrentIndex(index);
-    setIsPlaying(false);
-
-    setTimeout(() => {
-      if (audioRef.current) {
-        audioRef.current.play();
-        setIsPlaying(true);
-      }
-    }, 0);
+    setIsPlaying(true); // tandai bahwa kita mau terus play
   };
 
   const handleNext = () => {
     const nextIndex = (currentIndex + 1) % tracks.length;
-    playTrackAtIndex(nextIndex);
+    setCurrentIndex(nextIndex);
+    setIsPlaying(true);
   };
 
   const handlePrev = () => {
     const prevIndex = (currentIndex - 1 + tracks.length) % tracks.length;
-    playTrackAtIndex(prevIndex);
+    setCurrentIndex(prevIndex);
+    setIsPlaying(true);
   };
 
   const handleEnded = () => {
-    handleNext();
+    // kalau lagu habis → lanjut ke lagu berikutnya
+    const nextIndex = (currentIndex + 1) % tracks.length;
+    setCurrentIndex(nextIndex);
+    setIsPlaying(true);
   };
 
   return (

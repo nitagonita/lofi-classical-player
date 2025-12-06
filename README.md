@@ -8,7 +8,7 @@ A single-page classical piano music player built for the **Full Stack Developer 
 - **Theme:** Night Bedroom Chill – study in a cozy bedroom while it’s raining outside
 - **Goal:** Create a calm, nostalgic listening experience suitable for studying, reading, or relaxing at night.
 
-The UI is designed to feel like a warm bedroom at night: soft lighting, dark blue background, and gentle glow accents.
+The UI is designed to feel like a warm bedroom at night.
 
 ## 🧩 Features
 

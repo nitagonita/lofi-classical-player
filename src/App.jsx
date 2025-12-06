@@ -26,6 +26,11 @@ function App() {
 
   const currentTrack = tracks[currentIndex];
 
+  // 🔹 Paksa title tab browser
+  useEffect(() => {
+    document.title = "Lofi Classical Bedroom Player";
+  }, []);
+
   // Kalau track berubah & status isPlaying = true → play otomatis
   useEffect(() => {
     if (!audioRef.current) return;
